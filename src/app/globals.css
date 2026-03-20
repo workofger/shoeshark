@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0A0A0F;
+  --bg-surface: #13131A;
+  --bg-card: #1A1A25;
+  --color-player: #4FC3F7;
+  --color-banker: #EF5350;
+  --color-tie: #66BB6A;
+  --color-ev-positive: #00E676;
+  --color-ev-negative: #FF5252;
+  --color-ev-neutral: #FFD740;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mono font for numbers */
+.font-mono {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+/* Prevent pull-to-refresh on PWA */
+html {
+  overscroll-behavior: none;
+}
+
+/* Safe area padding for mobile */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
+}
