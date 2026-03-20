@@ -6,7 +6,7 @@ import { DEFAULT_PAYOUTS } from '../../src/engine/constants';
 
 describe('EV Calculations', () => {
   const shoe = createShoe();
-  const sim = runSimulation(shoe, 20_000);
+  const sim = runSimulation(shoe, 100_000);
   const probs = toProbabilities(sim);
 
   it('calculates EV for all bet types', () => {
@@ -41,10 +41,23 @@ describe('EV Calculations', () => {
     expect(ev.tie).toBeLessThan(-0.05);
   });
 
-  it('banker EV is better than player EV', () => {
-    const ev = calculateEV(probs);
-    // Banker should have less negative EV
+  it('banker EV is better than player EV with theoretical probabilities', () => {
+    // Use known theoretical probabilities (8-deck) to avoid MC variance
+    const theoreticalProbs: Probabilities = {
+      player: 0.44625,
+      banker: 0.45860,
+      tie: 0.09516,
+      playerPair: 0.0747,
+      bankerPair: 0.0747,
+      eitherPair: 0.1438,
+      playerDragonByMargin: {},
+      bankerDragonByMargin: {},
+    };
+    const ev = calculateEV(theoreticalProbs);
+    // Banker EV (~-1.06%) should be less negative than Player EV (~-1.24%)
     expect(ev.banker).toBeGreaterThan(ev.player);
+    expect(ev.banker).toBeCloseTo(-0.01058, 2);
+    expect(ev.player).toBeCloseTo(-0.01235, 2);
   });
 
   it('pair bets should exist', () => {
